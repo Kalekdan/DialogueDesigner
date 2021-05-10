@@ -13,8 +13,9 @@ public class DialogueEntry {
     private int parentDId;
     private ArrayList<DialogueEntry> children = new ArrayList<>();
     private String DContent;
+    private boolean isOption = true;
 
-    public DialogueEntry(@Nullable DialogueEntry parent, String content) {
+    public DialogueEntry(@Nullable DialogueEntry parent, String content, boolean isOption) {
         DId = ++ DIdCount;
         DContent = content;
         if (parent != null){
@@ -23,18 +24,23 @@ public class DialogueEntry {
         } else{
             parentDId = -1;
         }
+        this.isOption = isOption;
     }
 
     public DialogueEntry() {
-        this(null, "Default Content");
+        this(null, "Default Content", true);
     }
 
     public DialogueEntry(String content) {
-        this(null, content);
+        this(null, content, true);
     }
 
     public DialogueEntry(DialogueEntry parent) {
-        this(parent, "Default Content");
+        this(parent, "Default Content", true);
+    }
+
+    public DialogueEntry(String content, boolean isOption) {
+        this(null, content, isOption);
     }
 
     public int getId() {
@@ -70,16 +76,21 @@ public class DialogueEntry {
         return response;
     }
 
+
     public static void stepThrough(DialogueEntry startPoint){
         if (startPoint.children.size() == 0) return;
-        System.out.println(startPoint.DContent);
-        System.out.println(startPoint.getOptions());
-        DialogueEntry selectedChild = selectChild(startPoint.children);
-        stepThrough(selectedChild);
+        if (!startPoint.isOption){System.out.println(startPoint.DContent);};
+        if (startPoint.children.get(0).isOption){
+            System.out.println(startPoint.getOptions());
+            DialogueEntry selectedChild = selectChild(startPoint.children);
+            stepThrough(selectedChild);
+        } else {
+            DialogueEntry selectedChild = startPoint.children.get(0);
+            stepThrough(selectedChild);
+        }
     }
 
     public static DialogueEntry selectChild(ArrayList<DialogueEntry> children){
-        if (children.size() == 1) {return children.get(0);}
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
         int selection= sc.nextInt();
         return children.get(selection);
