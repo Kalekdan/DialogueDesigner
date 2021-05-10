@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class DialogueEntry {
     public static int DIdCount = 0;
+    public static ArrayList<DialogueEntry> DEntries =  new ArrayList<>();
 
     private int DId;
     private int parentDId;
@@ -38,6 +39,11 @@ public class DialogueEntry {
             parentDId = -1;
         }
         this.isOption = isOption;
+        DEntries.add(this);
+    }
+
+    public DialogueEntry(int parentId, String content, boolean isOption) {
+        this(getEntryById(parentId), content, isOption);
     }
 
     public DialogueEntry(String content, boolean isOption) {
@@ -45,16 +51,38 @@ public class DialogueEntry {
     }
 
     /**
+     * Get the DialogueEntry object which has the provided id
+     * @param EntryId the id to lookup
+     * @return DialogueEntry with the matching id, or null if not present
+     */
+    private static DialogueEntry getEntryById(int EntryId) {
+        for (int counter = 0; counter < DEntries.size(); counter++) {
+            if (DEntries.get(counter).DId == EntryId){
+                return DEntries.get(counter);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds the provided DialogueEntry as a child to the instance of the class calling the method
      * @param child the DialogueEntry to be added to the child of the instance of the class calling the method
      */
-    private void addChild(DialogueEntry child){
+    public void addChild(DialogueEntry child){
         children.add(child);
+    }
+
+    public void addChild(int childId){
+        addChild(getEntryById(childId));
     }
 
     @Override
     public String toString(){
         return "Id:" + DId + "\nContent:" + DContent +"\nChildren:" + children.size();
+    }
+
+    public int getId() {
+        return DId;
     }
 
     /**
@@ -84,6 +112,14 @@ public class DialogueEntry {
             DialogueEntry selectedChild = startPoint.children.get(0);
             stepThrough(selectedChild);
         }
+    }
+
+    /**
+     * Calls stepThrough(DialogueEntry) with the entry found from the id provided
+     * @param startId the id for the entry to start the dialogue
+     */
+    public static void stepThrough(int startId){
+        stepThrough(getEntryById(startId));
     }
 
     /**
