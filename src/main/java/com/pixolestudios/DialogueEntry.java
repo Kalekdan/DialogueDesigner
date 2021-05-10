@@ -40,18 +40,6 @@ public class DialogueEntry {
         this.isOption = isOption;
     }
 
-    public DialogueEntry() {
-        this(null, "Default Content", true);
-    }
-
-    public DialogueEntry(String content) {
-        this(null, content, true);
-    }
-
-    public DialogueEntry(DialogueEntry parent) {
-        this(parent, "Default Content", true);
-    }
-
     public DialogueEntry(String content, boolean isOption) {
         this(null, content, isOption);
     }
