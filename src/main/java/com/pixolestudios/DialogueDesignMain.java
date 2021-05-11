@@ -1,32 +1,70 @@
 package main.java.com.pixolestudios;
 
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
+
 public  class DialogueDesignMain {
     public static void main(String[] args) {
+//        DialogueEntry q1 = new DialogueEntry("Welcome Traveller", false);             #1
+//
+//        DialogueEntry q1a1 = new DialogueEntry(q1, "Hello", true);            #2
+//        DialogueEntry q1a2 = new DialogueEntry(q1, "Goodbye", true);            #3
+//        DialogueEntry q1a3 = new DialogueEntry(q1, "Hi there", true);            #4
+//
+//        DialogueEntry q3 = new DialogueEntry(q1a2, "So long", false);            #5
+//        DialogueEntry q4 = new DialogueEntry(q1a3, "Hi to you too - do you want to buys something?", false);            #6
+//        q1a1.addChild(q4.getId());
+//
+//        DialogueEntry q4a1 = new DialogueEntry(q4, "Yes", true);            #7
+//        DialogueEntry q4a2 = new DialogueEntry(q4, "No", true);            #8
+//        DialogueEntry q4a3 = new DialogueEntry(q4, "Definitely not", true);            #9
+//        DialogueEntry q4a4 = new DialogueEntry(q4, "Ask me again", true);            #10
+//        q4a4.addChild(q4.getId());
+//
+//        DialogueEntry q5 = new DialogueEntry(q4a1, "What would you like to buy?", false);            #11
+//
+//        DialogueEntry q5a1 = new DialogueEntry(q5, "Cheese", true);            #12
+//        DialogueEntry q5a2 = new DialogueEntry(q5, "Sweet Roll", true);            #13
+//        DialogueEntry q5a3 = new DialogueEntry(q5, "Potion", true);            #14
+//        DialogueEntry q5a4 = new DialogueEntry(q5, "Sword", true);            #15
+//        DialogueEntry q5a5 = new DialogueEntry(q5, "Armor", true);            #16
+
+        ArrayList<AdjacencyEntry> adjacencyList = new ArrayList<AdjacencyEntry>();
+        adjacencyList.add(new AdjacencyEntry(1, 2,3,4));
+        adjacencyList.add(new AdjacencyEntry(2, 6));
+        adjacencyList.add(new AdjacencyEntry(3, 5));
+        adjacencyList.add(new AdjacencyEntry(4, 6));
+        adjacencyList.add(new AdjacencyEntry(6, 7,8,9,10));
+        adjacencyList.add(new AdjacencyEntry(7, 11));
+        adjacencyList.add(new AdjacencyEntry(10, 6));
+        adjacencyList.add(new AdjacencyEntry(11, 12,13,14,15,16));
+
         DialogueEntry q1 = new DialogueEntry("Welcome Traveller", false);
 
-        DialogueEntry q1a1 = new DialogueEntry(q1, "Hello", true);
-        DialogueEntry q1a2 = new DialogueEntry(q1, "Goodbye", true);
-        DialogueEntry q1a3 = new DialogueEntry(q1, "Hi there", true);
+        DialogueEntry q1a1 = new DialogueEntry("Hello", true);
+        DialogueEntry q1a2 = new DialogueEntry("Goodbye", true);
+        DialogueEntry q1a3 = new DialogueEntry("Hi there", true);
 
-        DialogueEntry q3 = new DialogueEntry(q1a2, "So long", false);
-        DialogueEntry q4 = new DialogueEntry(q1a3, "Hi to you too - do you want to buys something?", false);
-        q1a1.addChild(q4.getId());
+        DialogueEntry q3 = new DialogueEntry("So long", false);
+        DialogueEntry q4 = new DialogueEntry("Hi to you too - do you want to buys something?", false);
 
-        DialogueEntry q4a1 = new DialogueEntry(q4, "Yes", true);
-        DialogueEntry q4a2 = new DialogueEntry(q4, "No", true);
-        DialogueEntry q4a3 = new DialogueEntry(q4, "Definitely not", true);
-        DialogueEntry q4a4 = new DialogueEntry(q4, "Ask me again", true);
-        q4a4.addChild(q4.getId());
+        DialogueEntry q4a1 = new DialogueEntry("Yes", true);
+        DialogueEntry q4a2 = new DialogueEntry( "No", true);
+        DialogueEntry q4a3 = new DialogueEntry( "Definitely not", true);
+        DialogueEntry q4a4 = new DialogueEntry( "Ask me again", true);
 
-        DialogueEntry q5 = new DialogueEntry(q4a1, "What would you like to buy?", false);
+        DialogueEntry q5 = new DialogueEntry( "What would you like to buy?", false);
 
-        DialogueEntry q5a1 = new DialogueEntry(q5, "Cheese", true);
-        DialogueEntry q5a2 = new DialogueEntry(q5, "Sweet Roll", true);
-        DialogueEntry q5a3 = new DialogueEntry(q5, "Potion", true);
-        DialogueEntry q5a4 = new DialogueEntry(q5, "Sword", true);
-        DialogueEntry q5a5 = new DialogueEntry(q5, "Armor", true);
+        DialogueEntry q5a1 = new DialogueEntry( "Cheese", true);
+        DialogueEntry q5a2 = new DialogueEntry( "Sweet Roll", true);
+        DialogueEntry q5a3 = new DialogueEntry( "Potion", true);
+        DialogueEntry q5a4 = new DialogueEntry( "Sword", true);
+        DialogueEntry q5a5 = new DialogueEntry( "Armor", true);
 
+        DialogueEntry.buildTreeFromAdjacencyList(adjacencyList);
         DialogueEntry.stepThrough(q1);
 
     }

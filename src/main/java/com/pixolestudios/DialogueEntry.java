@@ -26,7 +26,7 @@ public class DialogueEntry {
      * @param isOption the isOption flag signifies whether this piece of dialogue is one that requires an option from
      *                 the user. Questions or dialogue from the NPC speaker should be flagged as false, whilst options
      *                 in response from the player should be flagged as true e.g.
-     *                 "Hello Traveller, what is youre name" should be false
+     *                 "Hello Traveller, what is your name" should be false
      *                 "Steve", "Bob", "Janet" should all be true
      */
     public DialogueEntry(@Nullable DialogueEntry parent, String content, boolean isOption) {
@@ -56,9 +56,9 @@ public class DialogueEntry {
      * @return DialogueEntry with the matching id, or null if not present
      */
     private static DialogueEntry getEntryById(int EntryId) {
-        for (int counter = 0; counter < DEntries.size(); counter++) {
-            if (DEntries.get(counter).DId == EntryId){
-                return DEntries.get(counter);
+        for (DialogueEntry dEntry : DEntries) {
+            if (dEntry.DId == EntryId) {
+                return dEntry;
             }
         }
         return null;
@@ -74,6 +74,17 @@ public class DialogueEntry {
 
     public void addChild(int childId){
         addChild(getEntryById(childId));
+    }
+
+    public void addChildren(DialogueEntry... children){
+        for (DialogueEntry child : children) {
+            addChild(child);
+        }
+    }
+    public void addChildren(int... children){
+        for (int child : children) {
+            addChild(child);
+        }
     }
 
     @Override
@@ -131,5 +142,11 @@ public class DialogueEntry {
         Scanner sc = new Scanner(System.in);    //System.in is a standard input stream
         int selection= sc.nextInt();
         return children.get(selection);
+    }
+
+    public static void buildTreeFromAdjacencyList(ArrayList<AdjacencyEntry> adjacencyList){
+        for (AdjacencyEntry x : adjacencyList){
+            getEntryById(x.getIndex()).addChildren(x.getValsArr());
+        }
     }
 }
