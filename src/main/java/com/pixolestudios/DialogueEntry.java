@@ -19,6 +19,7 @@ public class DialogueEntry {
 
     /**
      * Default constructor for a new dialogue entry
+     * @param ownerDialogue The Dialogue object to which this entry belongs
      * @param parent the dialogue entry which this follows on from. In the case this is the first entry in a dialogue
      *               this should be set to -1
      * @param content the content of the dialogue, usually a string of text
@@ -52,6 +53,20 @@ public class DialogueEntry {
 
     public ArrayList<DialogueEntry> getChildren() {
         return children;
+    }
+
+    /**
+     * Returns a comma separated list of the ids of the children for the given entry. Where there
+     * are no children, an empty string is returned
+     * @return comma separated list or empty string
+     */
+    public String getChildrenAsStringList(){
+        String returnStr = "";
+        for (DialogueEntry child: children){
+            returnStr += child.getId() + ",";
+        }
+        int len = returnStr.length();
+        return len == 0 ? "" : returnStr.substring(0, len - 1);
     }
 
     public boolean isOption() {

@@ -67,7 +67,8 @@ public  class DialogueDesignMain {
         DialogueEntry q5a5 = new DialogueEntry(dialogue, "Armor", true);
 
         dialogue.buildTreeFromAdjacencyList(adjacencyList);
-        dialogue.stepThrough(q1);
+        //dialogue.stepThrough(q1);
 
+        dialogue.exportDialogue();
     }
 }

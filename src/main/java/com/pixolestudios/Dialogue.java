@@ -1,5 +1,8 @@
 package main.java.com.pixolestudios;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,6 +17,10 @@ public class Dialogue {
 
     public void addEntries(DialogueEntry entry){
         DEntries.add(entry);
+    }
+
+    public void setDialogueName(String name){
+        this.dialogueName = name;
     }
 
     /**
@@ -52,6 +59,10 @@ public class Dialogue {
         return children.get(selection);
     }
 
+    /**
+     * Connects the entries together in parent child relationships based on the adjacency list provided
+     * @param adjacencyList An ArrayList of AdjacencyEntry objects to form an adjacency list
+     */
     public void buildTreeFromAdjacencyList(ArrayList<AdjacencyEntry> adjacencyList){
         for (AdjacencyEntry x : adjacencyList){
             getEntryById(x.getIndex()).addChildren(x.getValsArr());
@@ -70,5 +81,26 @@ public class Dialogue {
             }
         }
         return null;
+    }
+
+    public void exportDialogue(){
+        try {
+            FileWriter adjacencyFile = new FileWriter(this.dialogueName + "_adjacencyList.txt");
+            FileWriter entryDetailsFile = new FileWriter(this.dialogueName + "_entryDetails.txt");
+            adjacencyFile.write("id,children\n");
+            entryDetailsFile.write("id,content\n");
+            for (DialogueEntry entry : DEntries){
+                String childList = entry.getChildrenAsStringList();
+                if (!childList.equals("")){
+                    adjacencyFile.write(entry.getId() + "," + childList + "\n");
+                }
+                entryDetailsFile.write(entry.getId() + "," + entry.getContent() + "\n");
+            }
+            adjacencyFile.close();
+            entryDetailsFile.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 }
