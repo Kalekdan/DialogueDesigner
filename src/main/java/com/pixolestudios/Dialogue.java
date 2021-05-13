@@ -1,6 +1,5 @@
 package main.java.com.pixolestudios;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,18 +82,22 @@ public class Dialogue {
         return null;
     }
 
+    /**
+     * Exports the dialogue to 2 files, one with an adjacency list showing parent child relationships, and one showing
+     * the content of the dialogue entry
+     */
     public void exportDialogue(){
         try {
             FileWriter adjacencyFile = new FileWriter(this.dialogueName + "_adjacencyList.txt");
             FileWriter entryDetailsFile = new FileWriter(this.dialogueName + "_entryDetails.txt");
             adjacencyFile.write("id,children\n");
-            entryDetailsFile.write("id,content\n");
+            entryDetailsFile.write("id,content,isOption\n");
             for (DialogueEntry entry : DEntries){
                 String childList = entry.getChildrenAsStringList();
                 if (!childList.equals("")){
                     adjacencyFile.write(entry.getId() + "," + childList + "\n");
                 }
-                entryDetailsFile.write(entry.getId() + "," + entry.getContent() + "\n");
+                entryDetailsFile.write(entry.getId() + ",\"" + entry.getContent() + "\"," + entry.isOption() + "\n");
             }
             adjacencyFile.close();
             entryDetailsFile.close();
