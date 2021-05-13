@@ -1,0 +1,27 @@
+println """
+*******************************************
+ You are building DialogueDesigner! 
+ Output files will be in /build/libs
+*******************************************
+"""
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'main.java.com.pixolestudios.DialogueDesignMain'
+
+sourceSets.main.java.srcDirs = ['src']
+
+sourceCompatibility = 1.8
+
+ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "dev"
+version 'Stable'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.java.com.pixolestudios.DialogueDesignMain'
+    }
+}
+
+repositories {
+    mavenCentral()
+}

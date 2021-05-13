@@ -1,0 +1,17 @@
+id,content,isOption
+1,"Welcome Traveller",false
+2,"Hello",true
+3,"Goodbye",true
+4,"Hi there",true
+5,"So long",false
+6,"Hi to you too - do you want to buys something?",false
+7,"Yes",true
+8,"No",true
+9,"Definitely not",true
+10,"Ask me again",true
+11,"What would you like to buy?",false
+12,"Cheese",true
+13,"Sweet Roll",true
+14,"Potion",true
+15,"Sword",true
+16,"Armor",true

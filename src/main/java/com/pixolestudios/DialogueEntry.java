@@ -1,6 +1,5 @@
 package main.java.com.pixolestudios;
 
-import com.sun.istack.internal.Nullable;
 
 import java.util.ArrayList;
 
@@ -29,7 +28,7 @@ public class DialogueEntry {
      *                 "Hello Traveller, what is your name" should be false
      *                 "Steve", "Bob", "Janet" should all be true
      */
-    public DialogueEntry(Dialogue ownerDialogue, @Nullable DialogueEntry parent, String content, boolean isOption) {
+    public DialogueEntry(Dialogue ownerDialogue, DialogueEntry parent, String content, boolean isOption) {
         DId = ++ DIdCount;
         this.ownerDialogue = ownerDialogue;
         DContent = content;
