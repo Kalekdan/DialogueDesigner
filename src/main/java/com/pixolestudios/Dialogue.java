@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A collection of Dialogue Entries, grouped together for exporting/stepping through
+ */
 public class Dialogue {
 
     private String dialogueName;
